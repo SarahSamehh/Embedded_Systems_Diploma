@@ -28,6 +28,7 @@
 #include "lcd.h"
 
 int read_IPSR;
+int read_CTRL=10;
 
 
 void clock_init()
@@ -75,19 +76,16 @@ void EXTI9_CallBack(void){
 	IRQ_flag=1;
 	__asm("MRS %0, IPSR"
 			:"=r" (read_IPSR));
-	LCD_WRITE_STRING("EXTI9B9 happened");
-	wait(1000);
 
 }
 
 int main(void)
 {
-	int read_CTRL=10;
 	RCC_GPIOA_CLK_EN();
 	RCC_GPIOB_CLK_EN();
 	RCC_AFIO_CLK_EN();
 
-	
+
 
 	EXTI_PinConfig_t EXTI_CFG;
 	EXTI_CFG.EXTI_PIN= EXTI9PB9;
@@ -100,7 +98,7 @@ int main(void)
 
 
 	clock_init();
-	
+
 	IRQ_flag=1;
 	while(1){
 		if(IRQ_flag){
