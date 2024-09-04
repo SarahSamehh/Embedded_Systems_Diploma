@@ -79,7 +79,6 @@ void EXTI9_CallBack(void){
 	wait(1000);
 
 }
-int read_IPSR;
 
 int main(void)
 {
@@ -88,8 +87,7 @@ int main(void)
 	RCC_GPIOB_CLK_EN();
 	RCC_AFIO_CLK_EN();
 
-	LCD_INIT();
-	LCD_clear_screen();
+	
 
 	EXTI_PinConfig_t EXTI_CFG;
 	EXTI_CFG.EXTI_PIN= EXTI9PB9;
@@ -102,16 +100,10 @@ int main(void)
 
 
 	clock_init();
-	LCD_INIT();
-	LCD_WRITE_STRING("Please work");
-	wait(500);
-	LCD_clear_screen();
-
-	unsigned char key_pressed;
+	
 	IRQ_flag=1;
 	while(1){
 		if(IRQ_flag){
-			LCD_clear_screen();
 			IRQ_flag=0;
 		}
 
